@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:api')->get('/user', function (Request $request) { return $request->user(); });
 
 
+Route::middleware('client')->group(function (){});
+
 // for nurse login
 Route::post('register', 'API\NurseAuthController@register');
 Route::post('login', 'API\NurseAuthController@login');

@@ -15,12 +15,9 @@ class client
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
-        }
-
+        config(['auth.guards.api.provider' => 'client']);
         return $next($request);
     }
 }

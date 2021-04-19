@@ -72,10 +72,13 @@ class APIAuthController extends Controller
         }
         $nurse = User::findOrFail($id);
 
-        $nurse->Product_name = $request->Product_name;
-        $nurse->category_id = $request->category_id;
-        $nurse->description = $request->description;
-        $nurse->price = $request->price;
+        $nurse->name = $request->name;
+        $nurse->email = $request->email;
+        $nurse->password = $request->password;
+        $nurse->mobile = $request->mobile;
+        $nurse->gender = $request->gender;
+        $nurse->age = $request->age;
+
 
         $nurse->save();
         return $this->sendResponse(new NurseResource($nurse) ,'تم تعديل بيانات الممرض بنجاح' );
