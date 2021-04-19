@@ -25,6 +25,8 @@ Route::middleware('client')->group(function (){
     Route::post('product/update/{id}','API\ClientInfoController@update');
 });
 
+Route::middleware('client')->group(function (){});
+
 // for nurse login
 Route::post('register', 'API\NurseAuthController@register');
 Route::post('login', 'API\NurseAuthController@login');
