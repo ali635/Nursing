@@ -5,8 +5,9 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+//use Illuminate\Contracts\Auth\Authenticatable as Authinterface;
 
-class User extends Authenticatable
+class User extends Authenticatable //implements Authinterface
 {
     use HasApiTokens, Notifiable;
 

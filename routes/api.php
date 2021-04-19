@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 // Client Login
 
+/*
+
 Route::post('register', 'API\ClientAuthController@register');
 Route::post('login', 'API\ClientAuthController@login');
 Route::middleware('client')->group(function (){
@@ -35,6 +37,8 @@ Route::middleware('auth:api')->group(function(){
     Route::post('product/update/{id}','API\NurseInfoController@update');
 
 });
+
+*/
 
 Route::group(['prefix' => 'admin'],function (){
     Route::post('login', 'API\AdminController@login');

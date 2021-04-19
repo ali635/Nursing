@@ -50,10 +50,7 @@ return [
             'driver' => 'passport',
             'provider' => 'admins',
         ],
-        'client' => [
-            'driver' => 'passport',
-            'provider' => 'clients',
-        ],
+
     ],
 
     /*
@@ -82,10 +79,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
         ],
-        'client' => [
-            'driver' => 'eloquent',
-            'model' => App\client::class,
-        ],
+
 
         // 'users' => [
         //     'driver' => 'database',
