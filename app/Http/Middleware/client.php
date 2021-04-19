@@ -15,12 +15,15 @@ class client
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+
+    public function handle($request, Closure $next, $guard = 'client')
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
+        if (!Auth::guard($guard)->check()) {
+            return redirect('/');
         }
 
         return $next($request);
     }
 }
+
+
