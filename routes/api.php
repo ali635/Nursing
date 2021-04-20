@@ -65,8 +65,10 @@ Route::group(['prefix' => 'admin'],function (){
     Route::delete('product/delete/{id}','API\NurseInfoController@destroy')-> middleware(['auth:admin-api']);
 
     ///////////// client routes ////////////////////////////////////////////////////
+    /*
     Route::get('product/index','API\NurseInfoController@index')-> middleware(['auth:admin-api']);
     Route::post('product/store','API\NurseInfoController@store')-> middleware(['auth:admin-api']);
     Route::get('product/show/{id}','API\NurseInfoController@show')-> middleware(['auth:admin-api']);
     Route::delete('product/delete/{id}','API\NurseInfoController@destroy')-> middleware(['auth:admin-api']);
+    */
 });
