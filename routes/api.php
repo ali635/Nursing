@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:api')->get('/user', function (Request $request) { return $request->user(); });
 
 // Client Login
-
+/*
 Route::post('register', 'API\ClientAuthController@register');
 Route::post('login', 'API\ClientAuthController@login');
 Route::middleware('client')->group(function (){
@@ -26,7 +26,7 @@ Route::middleware('client')->group(function (){
 });
 
 Route::middleware('client')->group(function (){});
-
+*/
 // for nurse login
 Route::post('register', 'API\NurseAuthController@register');
 Route::post('login', 'API\NurseAuthController@login');
@@ -61,8 +61,10 @@ Route::group(['prefix' => 'admin'],function (){
     Route::delete('product/delete/{id}','API\NurseInfoController@destroy')-> middleware(['auth:admin-api']);
 
     ///////////// client routes ////////////////////////////////////////////////////
+    /*
     Route::get('product/index','API\NurseInfoController@index')-> middleware(['auth:admin-api']);
     Route::post('product/store','API\NurseInfoController@store')-> middleware(['auth:admin-api']);
     Route::get('product/show/{id}','API\NurseInfoController@show')-> middleware(['auth:admin-api']);
     Route::delete('product/delete/{id}','API\NurseInfoController@destroy')-> middleware(['auth:admin-api']);
+    */
 });
