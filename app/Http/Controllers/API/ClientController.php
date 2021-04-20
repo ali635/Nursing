@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace App\Http\Controllers;
 
 use App\client;
@@ -27,3 +27,4 @@ class ClientController extends Controller
 
 
 }
+*/
