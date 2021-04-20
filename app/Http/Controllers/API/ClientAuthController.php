@@ -1,4 +1,5 @@
 <?php
+/*
 
 namespace App\Http\Controllers\API;
 
@@ -45,3 +46,4 @@ class ClientAuthController extends Controller
     }
 
 }
+*/
