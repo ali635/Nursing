@@ -30,4 +30,14 @@ class AdminController extends BaseController
             return $this->sendError('Please check your Auth' ,['error'=> 'Unauthorised'] );
         }
     }
+
+    public function logoutApi()
+    { 
+        if (Auth::check()) 
+        {
+            $user = Auth::user()->token();
+            $user->revoke();
+            return $this->sendResponse($user ,'Admin logout successfully' );
+        }
+    }
 }

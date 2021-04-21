@@ -6,12 +6,10 @@ use App\client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
-
 use App\Http\Resources\Client as ClientResource;
 use App\Http\Controllers\API\BaseController as BaseController;
-use App\User;
 
-class ClientInfoController extends Controller
+class ClientInfoController extends BaseController
 {
     public function index()
     {
@@ -26,9 +24,11 @@ class ClientInfoController extends Controller
     {
         $input = $request->all();
         $validator = Validator::make($input , [
-            'name'   => 'required',
-            'mobile' => 'required',
-            'address' => 'required',
+            'name'     => 'required',
+            'mobile'   => 'required',
+            'address'  => 'required',
+            'longitude'=> 'string|max:255|nullable',
+            'latitude' => 'string|max:255|nullable',
         ] );
 
         if ($validator->fails())
@@ -54,9 +54,11 @@ class ClientInfoController extends Controller
     {
         $input = $request->all();
         $validator = Validator::make($input , [
-            'name'   => 'required',
-            'mobile' => 'required',
-            'address' => 'required',
+            'name'     => 'required',
+            'mobile'   => 'required',
+            'address'  => 'required',
+            'longitude'=> 'string|max:255|nullable',
+            'latitude' => 'string|max:255|nullable',
 
         ]);
 
@@ -66,9 +68,11 @@ class ClientInfoController extends Controller
         }
         $client = client::findOrFail($id);
 
-        $client->name = $request->name;
-        $client->mobile = $request->mobile;
-        $client->address = $request->address;
+        $client->name      = $request->name;
+        $client->mobile    = $request->mobile;
+        $client->address   = $request->address;
+        $client->longitude = $request->longitude;
+        $client->latitude  = $request->latitude;
 
 
         $client->save();

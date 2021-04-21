@@ -13,7 +13,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\User;
 
 
-class APIAuthController extends Controller
+class NurseInfoController extends BaseController
 {
     public function index()
     {
@@ -28,10 +28,12 @@ class APIAuthController extends Controller
        $validator = Validator::make($input , [
         'name'   => 'required',
         'email'  => 'required|max:255',
-        'password' => 'required|min:6',
-        'mobile' => 'required',
+        'password' => 'required|min:6|confirmed|string',
+        'mobile' => 'required|numeric',
         'gender' => 'required',
         'age'    => 'required',
+        'photo'  => 'nullable|image'
+
        ] );
 
        if ($validator->fails())
@@ -63,6 +65,8 @@ class APIAuthController extends Controller
             'mobile' => 'required',
             'gender' => 'required',
             'age'    => 'required',
+            'photo'  => 'nullable|image',
+
 
         ]);
 
@@ -78,6 +82,13 @@ class APIAuthController extends Controller
         $nurse->mobile = $request->mobile;
         $nurse->gender = $request->gender;
         $nurse->age = $request->age;
+        if($request->photo && $request->photo->isValid())
+        {
+            $file_name = time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('images'),$file_name);
+            $path = "public/images/$file_name";
+            $nurse->photo=$path;
+        }
 
 
         $nurse->save();
@@ -97,6 +108,44 @@ class APIAuthController extends Controller
             return $this->sendError('الممرض غير موجود');
         }
 
+    }
+
+    public function uploadImage($id,Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make($input , [
+            'name'   => 'required',
+            'email'  => 'required|max:255',
+            'password' => 'required|min:6',
+            'mobile' => 'required',
+            'gender' => 'required',
+            'age'    => 'required',
+            'photo'  => 'nullable|image',
+
+        ]);
+
+        if ($validator->fails())
+        {
+            return $this->sendError('Please validate error' ,$validator->errors() );
+        }
+        $nurse = User::findOrFail($id);
+
+        $nurse->name     = $request->name;
+        $nurse->email    = $request->email;
+        $nurse->password = $request->password;
+        $nurse->mobile   = $request->mobile;
+        $nurse->gender   = $request->gender;
+        $nurse->age      = $request->age;
+
+        if($request->photo && $request->photo->isValid())
+        {
+            $file_name = time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('images'),$file_name);
+            $path = "public/images/$file_name";
+            $nurse->photo=$path;
+        }
+        $nurse->save();
+        return $this->sendResponse(new ProductResource($nurse) ,'تم تعديل المنتج بنجاح' );
     }
 
 }

@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('mobile');
             $table->string('gender');
             $table->string('age');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->string('accepet');
             $table->rememberToken();
             $table->timestamps();

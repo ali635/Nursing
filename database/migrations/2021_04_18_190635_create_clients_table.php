@@ -18,6 +18,8 @@ class CreateClientsTable extends Migration
             $table->string('name');
             $table->string('mobile')->unique();
             $table->longText('address');
+            $table->longText('longitude')->nullable();
+            $table->longText('latitude')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

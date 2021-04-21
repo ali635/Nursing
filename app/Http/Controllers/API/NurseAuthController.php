@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Hash;
 use Validator;
 
 
-class AuthController extends Controller
+class NurseAuthController extends BaseController
 {
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name'     => 'required',
             'email'    => 'required|email',
-            'password' => 'required|min:6',
-            'mobile'   => 'required',
+            'password' => 'required|min:6|confirmed|string',
+            'mobile'   => 'required|numeric',
             'gender'   => 'required',
             'age'      => 'required',
         ]);
@@ -46,6 +46,16 @@ class AuthController extends Controller
             return $this->sendResponse($success, 'User Login Successfully!');
         } else {
             return $this->sendError('Unauthorised', ['error','Unauthorised']);
+        }
+    }
+
+    public function logoutApi()
+    {
+        if (Auth::check())
+        {
+            $user = Auth::user()->token();
+            $user->revoke();
+            return $this->sendResponse($user ,'nurse logout successfully' );
         }
     }
 }
