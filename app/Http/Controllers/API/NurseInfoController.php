@@ -13,7 +13,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\User;
 
 
-class APIAuthController extends Controller
+class NurseInfoController extends BaseController
 {
     public function index()
     {
@@ -28,8 +28,8 @@ class APIAuthController extends Controller
        $validator = Validator::make($input , [
         'name'   => 'required',
         'email'  => 'required|max:255',
-        'password' => 'required|min:6',
-        'mobile' => 'required',
+        'password' => 'required|min:6|confirmed|string',
+        'mobile' => 'required|numeric',
         'gender' => 'required',
         'age'    => 'required',
        ] );

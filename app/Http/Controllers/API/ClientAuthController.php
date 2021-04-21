@@ -1,17 +1,19 @@
 <?php
-/*
+
+
+
 namespace App\Http\Controllers\API;
 
-use App\client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
-use App\User;
+use App\client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
-class ClientAuthController extends Controller
+
+class ClientAuthController extends BaseController
 {
     public function register(Request $request)
     {
@@ -30,19 +32,26 @@ class ClientAuthController extends Controller
         $success['name'] = $client->name;
         return $this->sendResponse($success, 'User registered Successfully!');
     }
-
     public function login(Request $request)
     {
-        if (Auth::attempt(['name' => $request->name, 'mobile' => $request->mobile])) {
-
-            $client = Auth::guard('client')->user();
+        $client = client::where("mobile", request('mobile'))->first();
+        if($client == 1){
             $success['token'] = $client->createToken('yahia')->accessToken;
             $success['name'] = $client->name;
             return $this->sendResponse($success, 'User Login Successfully!');
         } else {
             return $this->sendError('Unauthorised', ['error','Unauthorised']);
         }
+
     }
 
+
+
 }
-*/
+
+/*
+
+
+
+
+ */

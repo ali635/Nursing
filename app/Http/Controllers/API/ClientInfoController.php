@@ -6,12 +6,10 @@ use App\client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
-
 use App\Http\Resources\Client as ClientResource;
 use App\Http\Controllers\API\BaseController as BaseController;
-use App\User;
 
-class ClientInfoController extends Controller
+class ClientInfoController extends BaseController
 {
     public function index()
     {
