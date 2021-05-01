@@ -61,7 +61,7 @@ class NurseInfoController extends BaseController
         $validator = Validator::make($input , [
             'name'   => 'required',
             'email'  => 'required|max:255',
-            'password' => 'required|min:6',
+            'password' => 'required|min:6|confirmed',
             'mobile' => 'required',
             'gender' => 'required',
             'age'    => 'required',
@@ -110,42 +110,42 @@ class NurseInfoController extends BaseController
 
     }
 
-    public function uploadImage($id,Request $request)
-    {
-        $input = $request->all();
-        $validator = Validator::make($input , [
-            'name'   => 'required',
-            'email'  => 'required|max:255',
-            'password' => 'required|min:6',
-            'mobile' => 'required',
-            'gender' => 'required',
-            'age'    => 'required',
-            'photo'  => 'nullable|image',
+    // public function uploadImage($id,Request $request)
+    // {
+    //     $input = $request->all();
+    //     $validator = Validator::make($input , [
+    //         'name'   => 'required',
+    //         'email'  => 'required|max:255',
+    //         'password' => 'required|min:6',
+    //         'mobile' => 'required',
+    //         'gender' => 'required',
+    //         'age'    => 'required',
+    //         'photo'  => 'nullable|image',
 
-        ]);
+    //     ]);
 
-        if ($validator->fails())
-        {
-            return $this->sendError('Please validate error' ,$validator->errors() );
-        }
-        $nurse = User::findOrFail($id);
+    //     if ($validator->fails())
+    //     {
+    //         return $this->sendError('Please validate error' ,$validator->errors() );
+    //     }
+    //     $nurse = User::findOrFail($id);
 
-        $nurse->name     = $request->name;
-        $nurse->email    = $request->email;
-        $nurse->password = $request->password;
-        $nurse->mobile   = $request->mobile;
-        $nurse->gender   = $request->gender;
-        $nurse->age      = $request->age;
+    //     $nurse->name     = $request->name;
+    //     $nurse->email    = $request->email;
+    //     $nurse->password = $request->password;
+    //     $nurse->mobile   = $request->mobile;
+    //     $nurse->gender   = $request->gender;
+    //     $nurse->age      = $request->age;
 
-        if($request->photo && $request->photo->isValid())
-        {
-            $file_name = time().'.'.$request->photo->extension();
-            $request->photo->move(public_path('images'),$file_name);
-            $path = "public/images/$file_name";
-            $nurse->photo=$path;
-        }
-        $nurse->save();
-        return $this->sendResponse(new ProductResource($nurse) ,'تم تعديل المنتج بنجاح' );
-    }
+    //     if($request->photo && $request->photo->isValid())
+    //     {
+    //         $file_name = time().'.'.$request->photo->extension();
+    //         $request->photo->move(public_path('images'),$file_name);
+    //         $path = "public/images/$file_name";
+    //         $nurse->photo=$path;
+    //     }
+    //     $nurse->save();
+    //     return $this->sendResponse(new ProductResource($nurse) ,'تم تعديل المنتج بنجاح' );
+    // }
 
 }

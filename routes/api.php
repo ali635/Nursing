@@ -38,7 +38,7 @@ Route::group(['prefix' => 'nurse'],function (){
     // for update nurse info by nurse
     Route::middleware('auth:api')->group(function(){
         Route::post('nurse/update/{id}','API\NurseInfoController@update');
-        Route::post('nurse/upload/{id}','API\NurseInfoController@uploadImage');
+        //Route::post('nurse/upload/{id}','API\NurseInfoController@uploadImage');
         Route::post('logout','API\NurseAuthController@logoutApi');
     });
 });

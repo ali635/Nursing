@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Http\Resources\Order as OrderResource;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Order;
+use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends BaseController
 {
@@ -23,7 +25,7 @@ class OrdersController extends BaseController
        $input = $request->all();
        $validator = Validator::make($input , [
         'product_id'  => 'required|numeric|exists:products,id',
-        'client_id'   => 'required|numeric|exists:clients,id',
+        
         'user_id'     => 'nullable|numeric|exists:users,id'
        ] );
 
@@ -31,7 +33,14 @@ class OrdersController extends BaseController
        {
             return $this->sendError('Please validate error' ,$validator->errors() );
        }
-        $order = Order::create($input);
+       
+
+       $ids = Auth::guard('client')->user()->id;
+      $order= Order::create([
+        'product_id' => $request->product_id,
+        'client_id' => $ids
+       ]);
+       
         return $this->sendResponse(new OrderResource($order) ,'تم اضافة الطلب بنجاح ' );
     }
 
