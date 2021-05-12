@@ -26,4 +26,14 @@ class Client extends Authenticatable
         return $this->belongsTo('App\Order');
     }
 
+    public function wishlist()
+    {
+        return $this->belongsToMany('App\Product', 'wishlists')->withTimestamps();
+    }
+
+    public function wishlistHas($productId)
+    {
+        return self::wishlist()->where('product_id', $productId)->exists();
+    }
+
 }

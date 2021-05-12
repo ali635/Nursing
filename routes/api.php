@@ -26,6 +26,10 @@ Route::group(['prefix' => 'client'],function (){
         Route::post('update/{id}','API\ClientInfoController@update');
         Route::post('order/store','API\OrdersController@store');
         Route::post('logout','API\ClientAuthController@logoutApi');
+        // wishlists routes
+        Route::post('wishlist', 'API\WishlistController@store');
+        Route::delete('wishlist', 'API\WishlistController@destroy');
+        Route::get('wishlist/products', 'API\WishlistController@index');
 
     });
 
