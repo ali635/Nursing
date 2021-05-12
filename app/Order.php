@@ -11,7 +11,7 @@ class Order extends Model
     
     public function products()
     {
-        return $this->hasOne('App\Product','product_id');
+        return $this->belongsToMany('App\Product');
     }
 
     public function clients()

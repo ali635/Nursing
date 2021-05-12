@@ -47,11 +47,13 @@ Route::group(['prefix' => 'nurse'],function (){
 
 Route::group(['prefix' => 'admin'],function (){
     Route::post('login', 'API\AdminController@login');
-    Route::post('logout','API\AdminController@logoutApi')-> middleware(['auth:admin-api']);
-    Route::apiResource('category','API\CategoriesController');
-    Route::apiResource('product','API\ProductsController');
-    Route::apiResource('nurse','API\NurseInfoController')->except(['update']);
-    Route::apiResource('client','API\ClientInfoController')->except(['update']);
-    Route::apiResource('order','API\OrdersController')->except(['store']);
-
+    // you masy login in system 
+    Route::middleware('auth:admin-api')->group(function(){
+        Route::post('logout','API\AdminController@logoutApi');
+        Route::apiResource('category','API\CategoriesController');
+        Route::apiResource('product','API\ProductsController');
+        Route::apiResource('nurse','API\NurseInfoController')->except(['update']);
+        Route::apiResource('client','API\ClientInfoController')->except(['update']);
+        Route::apiResource('order','API\OrdersController')->except(['store']);
+    });
 });
