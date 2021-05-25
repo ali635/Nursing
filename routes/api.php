@@ -59,5 +59,6 @@ Route::group(['prefix' => 'admin'],function (){
         Route::apiResource('nurse','API\NurseInfoController')->except(['update']);
         Route::apiResource('client','API\ClientInfoController')->except(['update']);
         Route::apiResource('order','API\OrdersController')->except(['store']);
+        Route::get('Dashboard', 'API\StatisticsController@index');
     });
 });

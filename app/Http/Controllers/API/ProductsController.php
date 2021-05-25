@@ -26,7 +26,8 @@ class ProductsController extends BaseController
         'Product_name'  => 'required|max:255',
         'category_id'    => 'required|exists:categories,id',
         'description'   => 'required',
-        'price'         => 'required'
+        'price'         => 'required',
+        'photo'         => 'required|image'
        ] );
 
        if ($validator->fails())
@@ -34,6 +35,14 @@ class ProductsController extends BaseController
             return $this->sendError('Please validate error' ,$validator->errors() );
        }
         $product = Product::create($input);
+        if($request->photo && $request->photo->isValid())
+        {
+            $file_name = time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('images'),$file_name);
+            $path = "public/images/$file_name";
+            $product->photo=$path;
+        }
+        $product->save();
         return $this->sendResponse(new ProductResource($product) ,'تم اضافة المنتج بنجاح ' );
     }
 
