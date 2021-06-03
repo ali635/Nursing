@@ -9,6 +9,7 @@ use Validator;
 use App\Http\Resources\Order as OrderResource;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Order;
+use App\Product;
 use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends BaseController
@@ -22,12 +23,23 @@ class OrdersController extends BaseController
 
     public function store(Request $request)
     {
-       $input = $request->all();
-       $validator = Validator::make($input , [
-        'product_id'  => 'required|numeric|exists:products,id',
-        
-        'user_id'     => 'nullable|numeric|exists:users,id'
-       ] );
+        $input = $request->all();
+        $validator = Validator::make($input,[
+            // this client_id will taken by system automatically
+            'client_id'     => 'nullable|numeric',
+            'client_name'   => 'nullable|string',
+            'client_phone'  => 'nullable|string',
+            'new_address'   => 'string|nullable',
+            'total'         => 'required|numeric',
+           // 'payment_method'=> 'required|string',
+            'status'        => 'boolean',
+            'check'         => 'boolean',
+          
+            //'product_id'    => 'required|numeric|exists:products,id',
+
+
+        ]);
+
 
        if ($validator->fails())
        {
@@ -37,9 +49,20 @@ class OrdersController extends BaseController
 
        $ids = Auth::guard('client')->user()->id;
       $order= Order::create([
-        'product_id' => $request->product_id,
-        'client_id' => $ids
+            'client_id'         => $ids,
+            'client_name'       => $request->client_name,
+            'client_phone'      => $request->client_phone,
+            'new_address'       => $request->new_address,
+            'total'             => $request->total,
+            'payment_method'    => $request->payment_method,
+            'status'            => $request->status,
+            'Payment_Date'      => $request->Payment_Date,
+           
        ]);
+
+       
+      // $order_ids = Order::find(1);
+       $order->products()->attach($request->products);
        
         return $this->sendResponse(new OrderResource($order) ,'تم اضافة الطلب بنجاح ' );
     }

@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $table = 'orders';
-    protected $fillable =['client_name','client_phone','client_id','new_address','total','payment_method','status','check','Payment_Date','user_id'];
+    protected $fillable =['client_id','client_name','client_phone','client_id','new_address','total','payment_method','status','check','Payment_Date','user_id'];
     
     public function products()
     {
-        return $this->belongsToMany('App\Product');
+        return $this->belongsToMany(Product::class, 'orderproduct');
     }
 
     public function clients()
