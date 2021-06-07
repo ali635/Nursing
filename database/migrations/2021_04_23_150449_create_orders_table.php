@@ -24,7 +24,7 @@ class CreateOrdersTable extends Migration
             $table->text('new_address')->nullable();
             $table->decimal('total', 18, 4)->unsigned();
             $table->string('payment_method');
-            $table->boolean('status')->default('0');
+            $table->string('status');
             $table->boolean('check')->default('0');
             $table->date('Payment_Date')->nullable();
             // علاقة الممرض

@@ -10,7 +10,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Client extends Authenticatable
 {
     use HasApiTokens, Notifiable;
-    protected $fillable = ['name','mobile','address','longitude','latitude'];
+
+    protected $table = 'clients';
+    protected $fillable = ['name', 'email', 'password','mobile','address','longitude','latitude'];
 
        /**
      * The attributes that should be hidden for arrays.
@@ -18,7 +20,11 @@ class Client extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'remember_token',
+        'password', 'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 
     public function order()

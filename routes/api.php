@@ -30,6 +30,7 @@ Route::group(['prefix' => 'client'],function (){
         Route::post('wishlist', 'API\WishlistController@store');
         Route::delete('wishlist', 'API\WishlistController@destroy');
         Route::get('wishlist/products', 'API\WishlistController@index');
+        Route::get('profile/order', 'API\HomeController@index');
 
     });
 
@@ -60,5 +61,7 @@ Route::group(['prefix' => 'admin'],function (){
         Route::apiResource('client','API\ClientInfoController')->except(['update']);
         Route::apiResource('order','API\OrdersController')->except(['store']);
         Route::get('Dashboard', 'API\StatisticsController@index');
+        Route::get('Dashboard/all/nurse', 'API\StatisticsController@getAllNurse');
+        Route::get('Dashboard/noactive/nurse', 'API\StatisticsController@getNoNurse');
     });
 });

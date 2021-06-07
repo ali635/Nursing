@@ -24,7 +24,7 @@ class Nurse extends JsonResource
             'gender'       => $this->gender,
             'age'          => $this->age,
             'photo'        => $this->photo,
-            'accepet'      => $this->accepet,
+            'is_active'      => $this->is_active,
             'rememberToken'=> $this->rememberToken,
             'created_at'   => $this->created_at->format('d/m/Y'),
             'updated_at'   => $this->updated_at->format('d/m/Y'),

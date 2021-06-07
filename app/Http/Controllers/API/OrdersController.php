@@ -11,6 +11,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Order;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrdersController extends BaseController
 {
@@ -30,34 +31,32 @@ class OrdersController extends BaseController
             'client_name'   => 'nullable|string',
             'client_phone'  => 'nullable|string',
             'new_address'   => 'string|nullable',
-            'total'         => 'required|numeric',
-           // 'payment_method'=> 'required|string',
+            //'total'         => 'required|numeric',
+            'payment_method'=> 'required|string',
             'status'        => 'boolean',
             'check'         => 'boolean',
           
             //'product_id'    => 'required|numeric|exists:products,id',
-
-
         ]);
-
-
        if ($validator->fails())
        {
             return $this->sendError('Please validate error' ,$validator->errors() );
        }
-       
+    //    $total = 0;
 
+     $order1 = Product::where('products.id','orderProduct.product_id')->sum('price');
+     
+    
        $ids = Auth::guard('client')->user()->id;
       $order= Order::create([
             'client_id'         => $ids,
             'client_name'       => $request->client_name,
             'client_phone'      => $request->client_phone,
             'new_address'       => $request->new_address,
-            'total'             => $request->total,
+            'total'             => $order1,
             'payment_method'    => $request->payment_method,
             'status'            => $request->status,
             'Payment_Date'      => $request->Payment_Date,
-           
        ]);
 
        
@@ -70,7 +69,7 @@ class OrdersController extends BaseController
 
     public function show($id)
     {
-        $order = Order::find($id);
+        $order = Order::findOrFail($id);
         if ( is_null($order) )
         {
             return $this->sendError('Order not found'  );
